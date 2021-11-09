@@ -1,30 +1,38 @@
+# Gradle Docker Codefresh example
 
-This project provides a simple example of using Docker containers to build and run a Java application without installing Java.
+This is an example Java application that uses Spring Boot 2, Gradle and Docker
+It is compiled using Codefresh.
 
-This sample does not use the Smartsheet API.
+If you are looking for Maven, then see this [example](https://github.com/codefresh-contrib/spring-boot-2-sample-app)
 
-## Compile Java Class
+## Create a multi-stage docker image
 
-When building a Java application we need a Java Development Kit (JDK). We can use an 
-existing Docker image with a JDK in it to build our class.
+To compile and package using Docker multi-stage builds
 
-```
-docker run -it -v $(pwd):/build openjdk:11 javac /build/HelloWorld.java
-```
-
-## Build Docker Container Image
-
-We can then take our Java class file (aka our build artifact) and bundle it into a 
-container image.
-
-```
-docker build -t hello-world -f Dockerfile .
+```bash
+docker build . -t my-app
 ```
 
-## Run Container
+## Create a Docker image packaging an existing jar
 
-Once we have a compiled Java class we can simply execute it with a Java Runtime Environment (JRE).
+```bash
+./gradlew build
+docker build . -t my-app -f Dockerfile.only-package
+```
 
+## To run the docker image
+
+```bash
+docker run -p 8080:8080 my-app
 ```
-docker run -it --rm=true hello-world
-```
+
+And then visit http://localhost:8080 in your browser.
+
+## To use this project in Codefresh
+
+There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefresh](codefresh.io) CI/CD platform.
+
+For the simple packaging pipeline see [codefresh-package-only.yml](codefresh-package-only.yml)
+
+More details can be found in [Codefresh documentation](https://codefresh.io/docs/docs/learn-by-example/java/gradle/)
+
