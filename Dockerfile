@@ -1,6 +1,7 @@
 FROM gradle:jdk11-alpine AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
+RUN apk add --update bash curl nodejs && rm -rf /var/cache/apk/*
 RUN gradle build --no-daemon
 
 FROM openjdk:11-jre-slim
