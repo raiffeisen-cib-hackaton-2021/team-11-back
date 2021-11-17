@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'gradle-example'
+rootProject.name = 'team-11-back'

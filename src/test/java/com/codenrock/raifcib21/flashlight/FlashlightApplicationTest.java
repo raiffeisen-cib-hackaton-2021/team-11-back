@@ -1,4 +1,4 @@
-package io.codefresh.gradleexample;
+package com.codenrock.raifcib21.flashlight;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GradleExampleApplicationTest {
+public class FlashlightApplicationTest {
 
 	@Test
 	public void contextLoads() {

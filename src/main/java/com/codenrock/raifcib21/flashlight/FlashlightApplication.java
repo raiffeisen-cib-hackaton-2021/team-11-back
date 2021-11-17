@@ -1,13 +1,13 @@
-package io.codefresh.gradleexample;
+package com.codenrock.raifcib21.flashlight;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GradleExampleApplication {
+public class FlashlightApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GradleExampleApplication.class, args);
+		SpringApplication.run(FlashlightApplication.class, args);
 	}
 
 }

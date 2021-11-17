@@ -1,26 +1,40 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'java'
+	id 'com.vaadin' version '0.14.7.3'
 }
 
 apply plugin: 'io.spring.dependency-management'
 
-group = 'io.codefresh'
+group = 'com.codenrock.raifcib21'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
 }
 
+ext {
+	set('vaadinVersion', "14.7.5")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+	}
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "com.vaadin:vaadin-spring-boot-starter:${vaadinVersion}"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+vaadin {
+	productionMode = true
 }
 
 test {
     useJUnit()
-
     maxHeapSize = '1G'
 }
