@@ -1,3 +1,17 @@
 vaadin:
   urlMapping: "/ui/*"
   pnpm-enabled: true
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://rc1c-xozc4qfrylgh5gvb.mdb.yandexcloud.net:6432/team-11?targetServerType=master&ssl=true&sslmode=verify-full
+    username: team-11
+    password: HKLGkjha43
+  jpa:
+    database: postgresql
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      show_sql: true
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false

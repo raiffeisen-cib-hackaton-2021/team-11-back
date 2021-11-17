@@ -18,6 +18,7 @@ ext {
 	set('vaadinVersion', "14.7.5")
 	set('lombokVersion', "1.18.22")
 	set('springdocVersion', "1.5.12")
+	set('postgresVersion', "42.3.1")
 }
 
 dependencyManagement {
@@ -30,6 +31,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation "com.vaadin:vaadin-spring-boot-starter:${vaadinVersion}"
 	implementation "org.springdoc:springdoc-openapi-ui:${springdocVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation "org.postgresql:postgresql:${postgresVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
