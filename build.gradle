@@ -16,6 +16,8 @@ repositories {
 
 ext {
 	set('vaadinVersion', "14.7.5")
+	set('lombokVersion', "1.18.22")
+	set('springdocVersion', "1.5.12")
 }
 
 dependencyManagement {
@@ -27,6 +29,12 @@ dependencyManagement {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation "com.vaadin:vaadin-spring-boot-starter:${vaadinVersion}"
+	implementation "org.springdoc:springdoc-openapi-ui:${springdocVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+	testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+	testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
