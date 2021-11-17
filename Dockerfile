@@ -1,6 +1,7 @@
 FROM gradle:jdk11-alpine AS build
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
+RUN apk add --update nodejs npm && rm -rf /var/cache/apk/*
 RUN gradle bootJar -Pvaadin.productionMode --no-daemon
 
 FROM openjdk:11-jre-slim
