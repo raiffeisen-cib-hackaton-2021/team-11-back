@@ -12,15 +12,27 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageToUser {
-    private final UUID id = UUID.randomUUID();
+public class MessageToUser implements Cloneable {
+    private UUID id;
     private CommunicationType communicationType;
     private Collection<ChannelType> channelTypes;
-    private boolean liked;
-    private boolean disliked;
     private String message;
     private Collection<UUID> userIds;
     private Collection<UserType> userTypes;
     private Collection<SegmentType> segmentTypes;
     private Collection<UUID> companyIds;
+
+    @Override
+    public MessageToUser clone() {
+        return MessageToUser.builder()
+                .id(id)
+                .communicationType(communicationType)
+                .channelTypes(channelTypes)
+                .message(message)
+                .userIds(userIds)
+                .message(message)
+                .userTypes(userTypes)
+                .segmentTypes(segmentTypes)
+                .build();
+    }
 }

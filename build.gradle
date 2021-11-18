@@ -12,6 +12,9 @@ sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
+	maven {
+		url "http://maven.vaadin.com/vaadin-addons"
+	}
 }
 
 ext {
@@ -29,6 +32,8 @@ dependencyManagement {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'com.vaadin.componentfactory:multi-combo-box-flow:0.4.0'
+	implementation 'org.vaadin.maxime:markdown-area:1.0.2'
 	implementation "com.vaadin:vaadin-spring-boot-starter:${vaadinVersion}"
 	implementation "org.springdoc:springdoc-openapi-ui:${springdocVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
