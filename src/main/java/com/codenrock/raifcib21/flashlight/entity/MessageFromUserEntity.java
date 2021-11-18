@@ -12,6 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -32,4 +33,5 @@ public class MessageFromUserEntity {
     private String message;
     private UUID userId;
     private UUID companyId;
+    private LocalDateTime time;
 }

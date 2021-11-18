@@ -1,6 +1,5 @@
 package com.codenrock.raifcib21.flashlight.service;
 
-import com.codenrock.raifcib21.flashlight.configuration.WebSocketConfiguration;
 import com.codenrock.raifcib21.flashlight.entity.MessageToUserEntity;
 import com.codenrock.raifcib21.flashlight.model.ChannelType;
 import com.codenrock.raifcib21.flashlight.model.MessageToUser;
@@ -15,11 +14,12 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.codenrock.raifcib21.flashlight.configuration.WebSocketConfiguration.DESTINATION;
+
 @Service
 @RequiredArgsConstructor
 public class MessageToUserService {
 
-    private static final String DESTINATION = WebSocketConfiguration.getDestinationPrefix();
     private static final String DELIMITER = ":";
 
     private final SimpMessagingTemplate template;
@@ -30,10 +30,10 @@ public class MessageToUserService {
         template.convertAndSend(DESTINATION, message);
     }
 
-    public MessageToUser persistAndSend(MessageToUser messageToUser) {
+    public MessageToUser persist(MessageToUser messageToUser) {
         var clone = messageToUser.clone();
 
-        var persisted = repository.save(MessageToUserEntity.builder()
+        var persisted = repository.saveAndFlush(MessageToUserEntity.builder()
                 .communicationType(clone.getCommunicationType())
                 .channelTypes(clone.getChannelTypes().stream().map(ChannelType::name).collect(Collectors.joining(DELIMITER)))
                 .message(clone.getMessage())
@@ -43,12 +43,11 @@ public class MessageToUserService {
                 .companyIds(clone.getUserIds().stream().map(UUID::toString).collect(Collectors.joining(DELIMITER)))
                 .build());
         clone.setId(persisted.getId());
-        send(clone);
         return clone;
     }
 
-    public void sendInitial(String name) {
-        repository.findAll().forEach(entity -> template.convertAndSendToUser(name, DESTINATION, MessageToUser.builder()
+    public void sendInitial() {
+        repository.findAll().forEach(entity -> send(MessageToUser.builder()
                 .id(entity.getId())
                 .communicationType(entity.getCommunicationType())
                 .channelTypes(Arrays.stream(entity.getChannelTypes().split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()))

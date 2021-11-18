@@ -12,26 +12,22 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @RequiredArgsConstructor
 public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
 
-    private static final String DESTINATION_PREFIX = "/";
-    public static final String APPLICATION_DESTINATION_PREFIX = "/";
+    public static final String DESTINATION = "/topic";
+    public static final String USER_DESTINATION = "/user";
+    private static final String APPLICATION_DESTINATION_PREFIX = "/app";
     private static final String ENDPOINT = "/ws";
     private static final String[] ALLOWED_ORIGINS = new String[]{"*"};
 
-    private final CustomHandshakeHandler handler;
-
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker(DESTINATION_PREFIX);
+        registry.enableSimpleBroker(DESTINATION);
         registry.setApplicationDestinationPrefixes(APPLICATION_DESTINATION_PREFIX);
+        registry.setUserDestinationPrefix(USER_DESTINATION);
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint(ENDPOINT).setHandshakeHandler(handler).setAllowedOrigins(ALLOWED_ORIGINS).withSockJS();
-        registry.addEndpoint(ENDPOINT).setHandshakeHandler(handler).setAllowedOrigins(ALLOWED_ORIGINS);
-    }
-
-    public static String getDestinationPrefix() {
-        return DESTINATION_PREFIX;
+        registry.addEndpoint(ENDPOINT).setAllowedOrigins(ALLOWED_ORIGINS).withSockJS();
+        registry.addEndpoint(ENDPOINT).setAllowedOrigins(ALLOWED_ORIGINS);
     }
 }

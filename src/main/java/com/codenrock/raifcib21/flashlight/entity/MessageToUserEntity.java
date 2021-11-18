@@ -15,6 +15,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -35,4 +36,5 @@ public class MessageToUserEntity {
     private String userTypes;
     private String segmentTypes;
     private String companyIds;
+    private LocalDateTime time;
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -20,6 +21,7 @@ public class MessageFromUser implements Cloneable {
     private String message;
     private UUID userId;
     private UUID companyId;
+    private LocalDateTime time = LocalDateTime.now();
 
     @Override
     public MessageFromUser clone() {
@@ -32,6 +34,7 @@ public class MessageFromUser implements Cloneable {
                 .message(message)
                 .userId(userId)
                 .companyId(companyId)
+                .time(time)
                 .build();
     }
 }

@@ -1,22 +1,23 @@
 vaadin:
   urlMapping: "/ui/*"
   pnpm-enabled: true
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          socket: DEBUG
 spring:
   datasource:
-    driver-class-name: org.h2.Driver
-    #    driver-class-name: org.postgresql.Driver
-    url: jdbc:h2:mem:team-11
-    #    url: jdbc:postgresql://rc1c-xozc4qfrylgh5gvb.mdb.yandexcloud.net:6432/team-11?targetServerType=master&ssl=true&sslmode=verify-full
+    driver-class-name: "org.postgresql.Driver"
+    url: jdbc:postgresql://rc1c-xozc4qfrylgh5gvb.mdb.yandexcloud.net:6432/team-11?targetServerType=master
     username: team-11
-    password: password
+    password: HKLGkjha43
   jpa:
-    #    database: postgresql
-    #    open-in-view: false
+    open-in-view: false
     hibernate:
-      ddl-auto: create-drop
-      #      dialect: org.hibernate.dialect.PostgreSQLDialect
-      dialect: org.hibernate.dialect.H2Dialect
-      show_sql: true
+      ddl-auto: update
+    show_sql: true
     properties.hibernate.temp.use_jdbc_metadata_defaults: false
   h2:
     console:
