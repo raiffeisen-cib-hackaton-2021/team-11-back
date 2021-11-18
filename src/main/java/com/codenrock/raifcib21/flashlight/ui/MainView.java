@@ -27,8 +27,9 @@ public class MainView extends VerticalLayout {
     private Grid<MessageFromUserEntity> grid() {
         var component = new Grid<>(MessageFromUserEntity.class);
         component.setWidth(75f, Unit.PERCENTAGE);
-        component.setColumns("id", "sourceType", "channelType", "liked", "disliked", "message", "userId", "companyId", "time");
         component.setItems(repository.findAll());
+        component.setColumns("id", "sourceType", "channelType", "liked", "disliked", "message", "userId", "companyId", "time");
+        setHorizontalComponentAlignment(Alignment.CENTER, component);
         return component;
     }
 }
