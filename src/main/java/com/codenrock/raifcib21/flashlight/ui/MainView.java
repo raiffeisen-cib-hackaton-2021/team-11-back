@@ -6,6 +6,7 @@ import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 
@@ -27,7 +28,8 @@ public class MainView extends VerticalLayout {
     private Grid<MessageFromUserEntity> grid() {
         var component = new Grid<>(MessageFromUserEntity.class);
         component.setWidth(75f, Unit.PERCENTAGE);
-        component.setItems(repository.findAll());
+        var entities = repository.findAll();
+        component.setDataProvider(DataProvider.ofCollection(entities));
         component.setColumns("id", "sourceType", "channelType", "liked", "disliked", "message", "userId", "companyId", "time");
         setHorizontalComponentAlignment(Alignment.CENTER, component);
         return component;

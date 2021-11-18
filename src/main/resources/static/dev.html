@@ -18,7 +18,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // defined a connection to a new socket endpoint
-        const socket = new SockJS('https://team-11-back.rba.codenrock.com/ws');
+        const socket = new SockJS('http://localhost:8080/ws');
         const stompClient = Stomp.over(socket);
         stompClient.connect({}, function (e) {
             stompClient.subscribe("/topic", function (data) {
