@@ -1,10 +1,6 @@
 package com.codenrock.raifcib21.flashlight.entity;
 
-import com.codenrock.raifcib21.flashlight.model.ChannelType;
 import com.codenrock.raifcib21.flashlight.model.CommunicationType;
-import com.codenrock.raifcib21.flashlight.model.SegmentType;
-import com.codenrock.raifcib21.flashlight.model.SourceType;
-import com.codenrock.raifcib21.flashlight.model.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.UUID;
 
 @Entity

@@ -20,7 +20,6 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.annotation.SpringComponent;
 import org.vaadin.maxime.MarkdownArea;
 
 import java.util.Arrays;
@@ -28,10 +27,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Route("admin")
-@SpringComponent
 public class AdminView extends VerticalLayout {
-
-    private final MessageToUserService service;
 
     private final ComboBox<CommunicationType> communicationType = communicationType();
     private final MultiComboBox<ChannelType> channelTypes = channelTypes();
@@ -41,13 +37,12 @@ public class AdminView extends VerticalLayout {
     private final TextArea companyIds = companyIds();
     private final MarkdownArea message = message();
 
-    public AdminView(MessageToUserService service) {
+    public AdminView() {
         setSizeUndefined();
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
         add(new H1("Ручная отправка сообщений"), getForm(), submitButton());
-        this.service = service;
     }
 
     private FormLayout getForm() {
@@ -120,6 +115,7 @@ public class AdminView extends VerticalLayout {
     private void onSubmit(ClickEvent<Button> event) {
         var notification = new Notification();
         try {
+            var service = VaadinServiceAccessor.get(MessageToUserService.class);
             var toUser = service.persist(MessageToUser.builder()
                     .communicationType(communicationType.getValue())
                     .channelTypes(channelTypes.getValue())
@@ -135,6 +131,7 @@ public class AdminView extends VerticalLayout {
         } catch (Exception e) {
             notification.setText("Сообщение не отправлено");
             notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
+            throw new RuntimeException(e);
         } finally {
             notification.open();
             event.getSource().setEnabled(true);
