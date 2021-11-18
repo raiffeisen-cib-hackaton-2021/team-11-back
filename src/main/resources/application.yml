@@ -8,12 +8,12 @@ spring:
     url: jdbc:h2:mem:team-11
     #    url: jdbc:postgresql://rc1c-xozc4qfrylgh5gvb.mdb.yandexcloud.net:6432/team-11?targetServerType=master&ssl=true&sslmode=verify-full
     username: team-11
-    password: HKLGkjha43
+    password: password
   jpa:
     #    database: postgresql
     #    open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       #      dialect: org.hibernate.dialect.PostgreSQLDialect
       dialect: org.hibernate.dialect.H2Dialect
       show_sql: true
