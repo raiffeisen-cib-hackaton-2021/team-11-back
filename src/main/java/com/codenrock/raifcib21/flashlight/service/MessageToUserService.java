@@ -61,6 +61,7 @@ public class MessageToUserService {
                 .userIds(Arrays.stream(entity.getUserIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
                 .segmentTypes(Arrays.stream(entity.getSegmentTypes().split(DELIMITER)).map(SegmentType::valueOf).collect(Collectors.toSet()))
                 .companyIds(Arrays.stream(entity.getCompanyIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
+                .time(entity.getTime())
                 .build())
         );
     }
