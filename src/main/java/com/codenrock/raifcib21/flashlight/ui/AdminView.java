@@ -60,6 +60,7 @@ public class AdminView extends VerticalLayout {
 
     private ComboBox<CommunicationType> communicationType() {
         var component = new ComboBox<CommunicationType>("Тип коммуникации");
+        component.setRequired(true);
         component.setItems(CommunicationType.values());
         component.setItemLabelGenerator(CommunicationType::name);
         return component;
@@ -67,6 +68,7 @@ public class AdminView extends VerticalLayout {
 
     private MultiComboBox<ChannelType> channelTypes() {
         var component = new MultiComboBox<ChannelType>("Каналы связи");
+        component.setRequired(true);
         component.setItems(ChannelType.values());
         component.setItemLabelGenerator(ChannelType::name);
         return component;
@@ -74,6 +76,7 @@ public class AdminView extends VerticalLayout {
 
     private MultiComboBox<UserType> userTypes() {
         var component = new MultiComboBox<UserType>("Категории пользователей");
+        component.setRequired(true);
         component.setItems(UserType.values());
         component.setItemLabelGenerator(UserType::name);
         return component;
@@ -81,6 +84,7 @@ public class AdminView extends VerticalLayout {
 
     private MultiComboBox<SegmentType> segmentTypes() {
         var component = new MultiComboBox<SegmentType>("Сегменты");
+        component.setRequired(true);
         component.setItems(SegmentType.values());
         component.setItemLabelGenerator(SegmentType::name);
         return component;
@@ -118,25 +122,22 @@ public class AdminView extends VerticalLayout {
         notification.setDuration(3000);
         try {
             var service = VaadinServiceAccessor.get(MessageToUserService.class);
-            var toUser = service.persist(MessageToUser.builder()
+            var toUser = MessageToUser.builder()
                     .communicationType(communicationType.getValue())
                     .channelTypes(channelTypes.getValue())
                     .userTypes(userTypes.getValue())
                     .segmentTypes(segmentTypes.getValue())
-                    .userIds(Arrays.stream(userIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()))
-                    .userIds(Arrays.stream(companyIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()))
+                    .userIds(Collections.emptyList())
+                    .companyIds(Collections.emptyList())
                     .message(message.getValue())
-                    .build());
-            if (userIds.getValue() != null && userIds.getValue().isEmpty()) {
+                    .build();
+            if (userIds.getValue() != null && !userIds.getValue().isEmpty()) {
                 toUser.setUserIds(Arrays.stream(userIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()));
-            } else {
-                toUser.setUserIds(Collections.emptyList());
             }
-            if (userIds.getValue() != null && userIds.getValue().isEmpty()) {
+            if (userIds.getValue() != null && !userIds.getValue().isEmpty()) {
                 toUser.setCompanyIds(Arrays.stream(companyIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()));
-            } else {
-                toUser.setCompanyIds(Collections.emptyList());
             }
+            toUser = service.persist(toUser);
             service.send(toUser);
             notification.setText("Сообщение отправлено");
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
