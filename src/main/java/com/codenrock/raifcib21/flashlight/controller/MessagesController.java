@@ -5,7 +5,6 @@ import com.codenrock.raifcib21.flashlight.model.MessageToUser;
 import com.codenrock.raifcib21.flashlight.service.MessageFromUserService;
 import com.codenrock.raifcib21.flashlight.service.MessageToUserService;
 import lombok.RequiredArgsConstructor;
-import org.atmosphere.config.service.Get;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
