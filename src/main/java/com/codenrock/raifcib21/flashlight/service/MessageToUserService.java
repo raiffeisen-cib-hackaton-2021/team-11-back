@@ -69,7 +69,7 @@ public class MessageToUserService {
                     .companyIds(Arrays.stream(entity.getCompanyIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
                     .time(entity.getTime())
                     .build();
-            var userIds = entity.getUserIds();
+            var userIds = (entity.getUserIds() == null) ? "" : entity.getUserIds();
             if (!userIds.isEmpty()) {
                 msg.setUserIds(Arrays.stream(userIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
             }
