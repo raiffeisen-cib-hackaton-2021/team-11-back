@@ -62,20 +62,28 @@ public class MessageToUserService {
             var msg = MessageToUser.builder()
                     .id(entity.getId())
                     .communicationType(entity.getCommunicationType())
-                    .channelTypes(Arrays.stream(entity.getChannelTypes().split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()))
+                    .channelTypes(Collections.emptyList())
                     .message(entity.getMessage())
                     .userIds(Collections.emptyList())
                     .segmentTypes(Collections.emptyList())
-                    .companyIds(Arrays.stream(entity.getCompanyIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
+                    .companyIds(Collections.emptyList())
                     .time(entity.getTime())
                     .build();
             var userIds = (entity.getUserIds() == null) ? "" : entity.getUserIds();
             if (!userIds.isEmpty()) {
-                msg.setUserIds(Arrays.stream(userIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
+                msg.setUserIds(Arrays.stream(userIds.split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()));
             }
             var companyIds = entity.getCompanyIds();
             if (!companyIds.isEmpty()) {
-                msg.setCompanyIds(Arrays.stream(companyIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
+                msg.setCompanyIds(Arrays.stream(companyIds.split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()));
+            }
+            var segmentTypes = entity.getSegmentTypes();
+            if (!segmentTypes.isEmpty()) {
+                msg.setSegmentTypes(Arrays.stream(companyIds.split(DELIMITER)).map(SegmentType::valueOf).collect(Collectors.toSet()));
+            }
+            var channelTypes = entity.getSegmentTypes();
+            if (!channelTypes.isEmpty()) {
+                msg.setChannelTypes(Arrays.stream(companyIds.split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()));
             }
             sendInitial(msg);
         });

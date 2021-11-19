@@ -12,6 +12,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -31,6 +32,7 @@ public class MessageFromUserEntity {
     private ChannelType channelType;
     private boolean liked;
     private boolean disliked;
+    @Lob
     private String message;
     private UUID userId;
     private UUID companyId;

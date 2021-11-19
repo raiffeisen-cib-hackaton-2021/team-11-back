@@ -11,6 +11,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ public class MessageToUserEntity {
     @Enumerated(EnumType.STRING)
     private CommunicationType communicationType;
     private String channelTypes;
+    @Lob
     private String message;
     private String userIds;
     private String userTypes;
