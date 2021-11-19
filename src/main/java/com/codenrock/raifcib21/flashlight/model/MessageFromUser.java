@@ -15,6 +15,7 @@ import java.util.UUID;
 public class MessageFromUser implements Cloneable {
     private UUID id;
     private SourceType sourceType;
+    private String sourceId;
     private ChannelType channelType;
     private boolean liked;
     private boolean disliked;
@@ -28,6 +29,7 @@ public class MessageFromUser implements Cloneable {
         return MessageFromUser.builder()
                 .id(id)
                 .sourceType(sourceType)
+                .sourceId(sourceId)
                 .channelType(channelType)
                 .liked(liked)
                 .disliked(disliked)

@@ -26,6 +26,7 @@ public class MessageFromUserEntity {
     private UUID id;
     @Enumerated(EnumType.STRING)
     private SourceType sourceType;
+    private String sourceId;
     @Enumerated(EnumType.STRING)
     private ChannelType channelType;
     private boolean liked;

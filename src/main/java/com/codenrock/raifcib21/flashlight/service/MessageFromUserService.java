@@ -16,12 +16,14 @@ public class MessageFromUserService {
 
         var persisted = repository.save(MessageFromUserEntity.builder()
                 .sourceType(clone.getSourceType())
+                .sourceId(clone.getSourceId())
                 .channelType(clone.getChannelType())
                 .liked(clone.isLiked())
                 .disliked(clone.isDisliked())
                 .message(clone.getMessage())
                 .userId(clone.getUserId())
                 .companyId(clone.getCompanyId())
+                .time(clone.getTime())
                 .build());
         clone.setId(persisted.getId());
         return clone;
