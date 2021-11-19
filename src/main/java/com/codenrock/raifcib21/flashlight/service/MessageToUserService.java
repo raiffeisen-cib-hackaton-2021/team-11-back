@@ -81,7 +81,7 @@ public class MessageToUserService {
             if (!segmentTypes.isEmpty()) {
                 msg.setSegmentTypes(Arrays.stream(segmentTypes.split(DELIMITER)).map(SegmentType::valueOf).collect(Collectors.toSet()));
             }
-            var channelTypes = entity.getSegmentTypes();
+            var channelTypes = entity.getChannelTypes();
             if (!channelTypes.isEmpty()) {
                 msg.setChannelTypes(Arrays.stream(channelTypes.split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()));
             }
