@@ -70,11 +70,11 @@ public class MessageToUserService {
                     .time(entity.getTime())
                     .build();
             var userIds = entity.getUserIds();
-            if (userIds.isEmpty()) {
+            if (!userIds.isEmpty()) {
                 msg.setUserIds(Arrays.stream(userIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
             }
             var companyIds = entity.getCompanyIds();
-            if (companyIds.isEmpty()) {
+            if (!companyIds.isEmpty()) {
                 msg.setCompanyIds(Arrays.stream(companyIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
             }
             sendInitial(msg);
