@@ -23,6 +23,8 @@
         stompClient.connect({}, function (e) {
             stompClient.subscribe("/topic", function (data) {
             });
+            stompClient.subscribe("/topic/banner", function (data) {
+            });
             stompClient.send("/app/init", {}, "")
         });
     });

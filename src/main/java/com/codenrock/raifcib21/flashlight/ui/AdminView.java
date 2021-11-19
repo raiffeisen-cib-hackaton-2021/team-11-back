@@ -23,6 +23,7 @@ import com.vaadin.flow.router.Route;
 import org.vaadin.maxime.MarkdownArea;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -125,8 +126,19 @@ public class AdminView extends VerticalLayout {
                     .userIds(Arrays.stream(companyIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()))
                     .message(message.getValue())
                     .build());
+            if (userIds.getValue() != null && userIds.getValue().isEmpty()) {
+                toUser.setUserIds(Arrays.stream(userIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()));
+            } else {
+                toUser.setUserIds(Collections.emptyList());
+            }
+            if (userIds.getValue() != null && userIds.getValue().isEmpty()) {
+                toUser.setCompanyIds(Arrays.stream(companyIds.getValue().split(",")).map(UUID::fromString).collect(Collectors.toSet()));
+            } else {
+                toUser.setCompanyIds(Collections.emptyList());
+            }
             service.send(toUser);
             notification.setText("Сообщение отправлено");
+            notification.setDuration(3000);
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         } catch (Exception e) {
             notification.setText("Сообщение не отправлено");

@@ -27,6 +27,11 @@ public class MessageToUserService {
     private final MessageToUserRepository repository;
 
     public void send(MessageToUser message) {
+        template.convertAndSend(DESTINATION+"/banner", message);
+        template.convertAndSend(DESTINATION, message);
+    }
+
+    public void sendInitial(MessageToUser message) {
         template.convertAndSend(DESTINATION, message);
     }
 
@@ -47,7 +52,7 @@ public class MessageToUserService {
     }
 
     public void sendInitial() {
-        repository.findAll().forEach(entity -> send(MessageToUser.builder()
+        repository.findAll().forEach(entity -> sendInitial(MessageToUser.builder()
                 .id(entity.getId())
                 .communicationType(entity.getCommunicationType())
                 .channelTypes(Arrays.stream(entity.getChannelTypes().split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()))
