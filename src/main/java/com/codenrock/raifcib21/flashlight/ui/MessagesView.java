@@ -9,7 +9,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.router.Route;
 
-@Route
+@Route("admin")
 public class MessagesView extends VerticalLayout {
 
     public MessagesView() {
