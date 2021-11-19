@@ -46,6 +46,7 @@ public class MessageToUserService {
                 .userTypes(clone.getUserTypes().stream().map(UserType::name).collect(Collectors.joining(DELIMITER)))
                 .segmentTypes(clone.getSegmentTypes().stream().map(SegmentType::name).collect(Collectors.joining(DELIMITER)))
                 .companyIds(clone.getUserIds().stream().map(UUID::toString).collect(Collectors.joining(DELIMITER)))
+                .time(clone.getTime())
                 .build());
         clone.setId(persisted.getId());
         return clone;
