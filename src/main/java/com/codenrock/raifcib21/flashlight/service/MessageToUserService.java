@@ -11,7 +11,6 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -54,7 +53,11 @@ public class MessageToUserService {
     }
 
     public void sendInitial() {
-        repository.findAll().stream().sorted(Comparator.comparing(MessageToUserEntity::getTime)).forEach(entity -> sendInitial(MessageToUser.builder()
+        var initial = repository.findAll();
+        if (initial.isEmpty()) {
+            return;
+        }
+        initial.forEach(entity -> sendInitial(MessageToUser.builder()
                 .id(entity.getId())
                 .communicationType(entity.getCommunicationType())
                 .channelTypes(Arrays.stream(entity.getChannelTypes().split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()))
