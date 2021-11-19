@@ -79,11 +79,11 @@ public class MessageToUserService {
             }
             var segmentTypes = entity.getSegmentTypes();
             if (!segmentTypes.isEmpty()) {
-                msg.setSegmentTypes(Arrays.stream(companyIds.split(DELIMITER)).map(SegmentType::valueOf).collect(Collectors.toSet()));
+                msg.setSegmentTypes(Arrays.stream(segmentTypes.split(DELIMITER)).map(SegmentType::valueOf).collect(Collectors.toSet()));
             }
             var channelTypes = entity.getSegmentTypes();
             if (!channelTypes.isEmpty()) {
-                msg.setChannelTypes(Arrays.stream(companyIds.split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()));
+                msg.setChannelTypes(Arrays.stream(channelTypes.split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()));
             }
             sendInitial(msg);
         });
