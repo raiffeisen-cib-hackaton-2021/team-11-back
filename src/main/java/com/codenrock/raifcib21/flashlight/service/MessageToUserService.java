@@ -11,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -57,16 +58,26 @@ public class MessageToUserService {
         if (initial.isEmpty()) {
             return;
         }
-        initial.forEach(entity -> sendInitial(MessageToUser.builder()
-                .id(entity.getId())
-                .communicationType(entity.getCommunicationType())
-                .channelTypes(Arrays.stream(entity.getChannelTypes().split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()))
-                .message(entity.getMessage())
-                .userIds(Arrays.stream(entity.getUserIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
-                .segmentTypes(Arrays.stream(entity.getSegmentTypes().split(DELIMITER)).map(SegmentType::valueOf).collect(Collectors.toSet()))
-                .companyIds(Arrays.stream(entity.getCompanyIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
-                .time(entity.getTime())
-                .build())
-        );
+        initial.forEach(entity -> {
+            var msg = MessageToUser.builder()
+                    .id(entity.getId())
+                    .communicationType(entity.getCommunicationType())
+                    .channelTypes(Arrays.stream(entity.getChannelTypes().split(DELIMITER)).map(ChannelType::valueOf).collect(Collectors.toSet()))
+                    .message(entity.getMessage())
+                    .userIds(Collections.emptyList())
+                    .segmentTypes(Collections.emptyList())
+                    .companyIds(Arrays.stream(entity.getCompanyIds().split(DELIMITER)).map(UUID::fromString).collect(Collectors.toSet()))
+                    .time(entity.getTime())
+                    .build();
+            var userIds = entity.getUserIds();
+            if (userIds.isEmpty()) {
+                msg.setUserIds(Arrays.stream(userIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
+            }
+            var companyIds = entity.getCompanyIds();
+            if (companyIds.isEmpty()) {
+                msg.setCompanyIds(Arrays.stream(companyIds.split(",")).map(UUID::fromString).collect(Collectors.toSet()));
+            }
+            sendInitial(msg);
+        });
     }
 }
