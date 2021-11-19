@@ -115,6 +115,7 @@ public class AdminView extends VerticalLayout {
 
     private void onSubmit(ClickEvent<Button> event) {
         var notification = new Notification();
+        notification.setDuration(3000);
         try {
             var service = VaadinServiceAccessor.get(MessageToUserService.class);
             var toUser = service.persist(MessageToUser.builder()
@@ -138,7 +139,6 @@ public class AdminView extends VerticalLayout {
             }
             service.send(toUser);
             notification.setText("Сообщение отправлено");
-            notification.setDuration(3000);
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         } catch (Exception e) {
             notification.setText("Сообщение не отправлено");
